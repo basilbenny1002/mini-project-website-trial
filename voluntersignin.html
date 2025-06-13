@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Volunteer Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+      color: #006064;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 1rem 2rem;
+    }
+    header {
+      background-color: #00838f;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      margin-bottom: 2rem;
+    }
+    h1, h2 {
+      margin: 0 0 0.5rem 0;
+    }
+
+    .welcome {
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .camp-list {
+      margin-bottom: 2rem;
+    }
+
+    .camp-item {
+      background: #b2ebf2;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .camp-info {
+      max-width: 75%;
+    }
+    .camp-info h3 {
+      margin: 0 0 0.5rem 0;
+      color: #004d40;
+    }
+    .camp-info p {
+      margin: 0.25rem 0;
+    }
+
+    form {
+      background: #e0f2f1;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    form h2 {
+      color: #004d40;
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+      color: #00695c;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+      border: 1px solid #004d40;
+      border-radius: 6px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 1.5rem;
+      background-color: #00796b;
+      color: white;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.25rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #004d40;
+    }
+
+    .volunteer-selection {
+      margin-top: 1rem;
+      text-align: right;
+    }
+
+    .submit-volunteer {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+      .camp-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .camp-info {
+        max-width: 100%;
+        margin-bottom: 1rem;
+      }
+      .volunteer-selection {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Volunteer Dashboard</h1>
+  </header>
+
+  <section class="welcome">
+    <h2>Welcome, <span id="volunteerName">Volunteer Name</span>!</h2>
+    <p>Select a camp to volunteer in or add a new camp below.</p>
+  </section>
+
+  <section class="camp-list" id="campList">
+    <!-- Camps will be dynamically inserted here -->
+  </section>
+
+  <section class="add-camp">
+    <form id="addCampForm">
+      <h2>Add New Camp</h2>
+      <label for="campName">Camp Name:</label>
+      <input type="text" id="campName" required />
+
+      <label for="campBeds">Number of Beds Available:</label>
+      <input type="number" id="campBeds" min="0" required />
+
+      <label for="campResources">Other Resources (comma separated):</label>
+      <textarea id="campResources" rows="3" placeholder="Food, Water, Medical Aid..."></textarea>
+
+      <button type="submit">Add Camp</button>
+    </form>
+  </section>
+
+  <section class="volunteer-selection">
+    <form id="volunteerForm">
+      <h2>Select Camp to Volunteer</h2>
+      <div id="volunteerCampOptions">
+        <!-- Radio buttons for camps will appear here -->
+      </div>
+      <div class="submit-volunteer">
+        <button type="submit">Confirm Volunteering</button>
+      </div>
+    </form>
+  </section>
+
+  <script>
+    // Simulate volunteer's name from sign up (in real app, get from auth/session)
+    const volunteerName = "John Doe"; 
+    document.getElementById('volunteerName').textContent = volunteerName;
+
+    const campListEl = document.getElementById('campList');
+    const volunteerCampOptionsEl = document.getElementById('volunteerCampOptions');
+    const addCampForm = document.getElementById('addCampForm');
+    const volunteerForm = document.getElementById('volunteerForm');
+
+    // Starting sample camps
+    let camps = [
+      { id: 1, name: "Riverbank Shelter", beds: 20, resources: ["Food", "Water", "Medical Aid"] },
+      { id: 2, name: "City Community Hall", beds: 50, resources: ["Food", "Water", "Blankets"] },
+    ];
+
+    // Render camps to the list and radio buttons
+    function renderCamps() {
+      campListEl.innerHTML = '';
+      volunteerCampOptionsEl.innerHTML = '';
+
+      camps.forEach(camp => {
+        // Camp card
+        const campDiv = document.createElement('div');
+        campDiv.className = 'camp-item';
+
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'camp-info';
+        infoDiv.innerHTML = `
+          <h3>${camp.name}</h3>
+          <p><strong>Beds Available:</strong> ${camp.beds}</p>
+          <p><strong>Resources:</strong> ${camp.resources.join(', ')}</p>
+        `;
+
+        // Radio button to select for volunteering
+        const radioDiv = document.createElement('div');
+        radioDiv.innerHTML = `
+          <input type="radio" id="campRadio${camp.id}" name="volunteerCamp" value="${camp.id}" required />
+          <label for="campRadio${camp.id}">Volunteer Here</label>
+        `;
+
+        campDiv.appendChild(infoDiv);
+        campDiv.appendChild(radioDiv);
+        campListEl.appendChild(campDiv);
+
+        // Also add radio button to volunteer selection form
+        const radioOption = document.createElement('div');
+        radioOption.style.marginBottom = '0.75rem';
+        radioOption.innerHTML = `
+          <input type="radio" id="radio${camp.id}" name="selectedCamp" value="${camp.id}" required />
+          <label for="radio${camp.id}">${camp.name} (Beds: ${camp.beds})</label>
+        `;
+        volunteerCampOptionsEl.appendChild(radioOption);
+      });
+    }
+
+    // Initial render
+    renderCamps();
+
+    // Add new camp handler
+    addCampForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('campName').value.trim();
+      const beds = parseInt(document.getElementById('campBeds').value);
+      const resources = document.getElementById('campResources').value
+        .split(',')
+        .map(r => r.trim())
+        .filter(r => r.length > 0);
+
+      if(name && !isNaN(beds)) {
+        const newCamp = {
+          id: camps.length ? camps[camps.length - 1].id + 1 : 1,
+          name,
+          beds,
+          resources
+        };
+        camps.push(newCamp);
+        renderCamps();
+        addCampForm.reset();
+        alert(`Camp "${name}" added successfully!`);
+      }
+    });
+
+    // Volunteer form submission handler
+    volunteerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const selectedCampId = document.querySelector('input[name="selectedCamp"]:checked')?.value;
+      if(selectedCampId) {
+        const camp = camps.find(c => c.id == selectedCampId);
+        alert(`Thank you, ${volunteerName}, for volunteering at "${camp.name}"!`);
+        // Here you can send the data to backend or store in session
+      }
+    });
+  </script>
+
+</body>
+</html>
