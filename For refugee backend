@@ -9,7 +9,8 @@ fetch('/register', {
   showMessage('✅ Registration successful! Redirecting to relief camps...');
   setTimeout(() => window.location.href = 'camps.html', 2000);
 })
-.catch(err => {
+.catch(error => {
   showMessage('❌ Registration failed. Please try again.', 'error');
-  console.error(err);
-});
+  console.error(error);
+}
+);
