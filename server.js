@@ -20,8 +20,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-  const { username, password } = req.body;
-  await new User({ username, password }).save();
+  const { aravindgpillai666, Aravi@123 } = req.body;
+  await new User({ aravindgpillai666, Aravi@123 }).save();
   res.send('User Registered!');
 });
 
@@ -36,10 +36,12 @@ app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}`));
 
 const mongoose = require('mongoose');
 
-mongoose.connect(mongodb+srv://aravindgpillai666:<db_password>@cluster0.wi4cdum.mongodb.net/
-)
+mongoose.connect(mongodb+srv://aravindgpillai666:<Aravi@123>@cluster0.wi4cdum.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0)
   .then(() => console.log('MongoDB connected!'))
   .catch(err => console.log(err));
+
+
+
 
 
 
