@@ -32,3 +32,18 @@ app.get('/camps', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}`));
+
+
+const mongoose = require('mongoose');
+
+mongoose.connect(mongodb+srv://aravindgpillai666:<db_password>@cluster0.wi4cdum.mongodb.net/
+)
+  .then(() => console.log('MongoDB connected!'))
+  .catch(err => console.log(err));
+
+
+
+
+
+
+
