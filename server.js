@@ -20,8 +20,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-  const { username, password } = req.body;
-  await new User({ username, password }).save();
+  const { aravindgpillai666, Aravi@123 } = req.body;
+  await new User({ aravindgpillai666, Aravi@123 }).save();
   res.send('User Registered!');
 });
 
