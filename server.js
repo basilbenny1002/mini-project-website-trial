@@ -34,6 +34,14 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}`));
 
 
+const mongoose = require('mongoose');
+
+mongoose.connect(mongodb+srv://aravindgpillai666:<Aravi@123>@cluster0.wi4cdum.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0)
+  .then(() => console.log('MongoDB connected!'))
+  .catch(err => console.log(err));
+
+
+
 
 
 
