@@ -23,6 +23,9 @@ const DB_PATH = path.join(__dirname, "database")
 const USERS_FILE = path.join(DB_PATH, "users.json")
 const CAMPS_FILE = path.join(DB_PATH, "camps.json")
 const SELECTIONS_FILE = path.join(DB_PATH, "selections.json")
+const User = require('./models/User');
+const Camp = require('./models/Camp');
+
 
 // Initialize database
 async function initializeDatabase() {
