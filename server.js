@@ -1,17 +1,19 @@
 
-const app = express()
-const PORT = process.env.PORT || 3000
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key-change-in-production"
+
 const express = require("express")
 const cors = require("cors")
 const fs = require("fs").promises
 const path = require("path")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-
+const app = express()
+const PORT = process.env.PORT || 3000
+const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key-change-in-production"
 
 
 // Middleware
+const app = express()
+
 app.use(cors())
 app.use(express.json())
 app.use(express.static("public")) // Serve HTML files from public folder
