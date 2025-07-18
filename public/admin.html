@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Viewer - Flood Rehabilitation Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .refresh-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .refresh-btn:hover {
+            background: #45a049;
+        }
+        .error {
+            color: red;
+            padding: 10px;
+            background: #ffe6e6;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        .role-volunteer {
+            background-color: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+        .role-refugee {
+            background-color: #fff3e0;
+            color: #f57c00;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗄️ Database Viewer - Flood Rehabilitation Project</h1>
+        
+        <button class="refresh-btn" onclick="loadData()">🔄 Refresh Data</button>
+        
+        <div id="loading" class="loading">Loading database...</div>
+        <div id="error" class="error" style="display: none;"></div>
+        
+        <div id="content" style="display: none;">
+            <!-- Stats Section -->
+            <div class="section">
+                <h2>📊 Database Statistics</h2>
+                <div class="stats" id="stats">
+                    <!-- Stats will be populated here -->
+                </div>
+            </div>
+
+            <!-- Users Section -->
+            <div class="section">
+                <h2>👥 Users</h2>
+                <div id="users-table">
+                    <!-- Users table will be populated here -->
+                </div>
+            </div>
+
+            <!-- Camps Section -->
+            <div class="section">
+                <h2>🏕️ Camps</h2>
+                <div id="camps-table">
+                    <!-- Camps table will be populated here -->
+                </div>
+            </div>
+
+            <!-- Selections Section -->
+            <div class="section">
+                <h2>📋 Camp Selections</h2>
+                <div id="selections-table">
+                    <!-- Selections table will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function loadData() {
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            const content = document.getElementById('content');
+            
+            loading.style.display = 'block';
+            error.style.display = 'none';
+            content.style.display = 'none';
+            
+            try {
+                const response = await fetch('/api/admin/database');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Populate stats
+                populateStats(data.stats);
+                
+                // Populate tables
+                populateUsersTable(data.users);
+                populateCampsTable(data.camps);
+                populateSelectionsTable(data.selections);
+                
+                loading.style.display = 'none';
+                content.style.display = 'block';
+                
+            } catch (err) {
+                loading.style.display = 'none';
+                error.style.display = 'block';
+                error.textContent = `Error loading data: ${err.message}`;
+                console.error('Error:', err);
+            }
+        }
+        
+        function populateStats(stats) {
+            const statsContainer = document.getElementById('stats');
+            statsContainer.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${stats.totalUsers}</div>
+                    <div class="stat-label">Total Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.totalVolunteers}</div>
+                    <div class="stat-label">Volunteers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.totalRefugees}</div>
+                    <div class="stat-label">Refugees</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.totalCamps}</div>
+                    <div class="stat-label">Total Camps</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.totalSelections}</div>
+                    <div class="stat-label">Camp Selections</div>
+                </div>
+            `;
+        }
+        
+        function populateUsersTable(users) {
+            const container = document.getElementById('users-table');
+            
+            if (users.length === 0) {
+                container.innerHTML = '<p>No users found.</p>';
+                return;
+            }
+            
+            const table = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Age</th>
+                            <th>Contact</th>
+                            <th>Registered Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${users.map(user => `
+                            <tr>
+                                <td>${user.id}</td>
+                                <td>${user.name}</td>
+                                <td>${user.email}</td>
+                                <td><span class="role-${user.role}">${user.role}</span></td>
+                                <td>${user.age}</td>
+                                <td>${user.contact || 'N/A'}</td>
+                                <td>${new Date(user.registeredDate).toLocaleDateString()}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = table;
+        }
+        
+        function populateCampsTable(camps) {
+            const container = document.getElementById('camps-table');
+            
+            if (camps.length === 0) {
+                container.innerHTML = '<p>No camps found.</p>';
+                return;
+            }
+            
+            const table = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Available Beds</th>
+                            <th>Original Beds</th>
+                            <th>Resources</th>
+                            <th>Contact</th>
+                            <th>Ambulance</th>
+                            <th>Added By</th>
+                            <th>Added Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${camps.map(camp => `
+                            <tr>
+                                <td>${camp.id}</td>
+                                <td>${camp.name}</td>
+                                <td>${camp.beds}</td>
+                                <td>${camp.originalBeds}</td>
+                                <td>${camp.resources.join(', ')}</td>
+                                <td>${camp.contact || 'N/A'}</td>
+                                <td>${camp.ambulance}</td>
+                                <td>${camp.addedBy}</td>
+                                <td>${new Date(camp.addedDate).toLocaleDateString()}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = table;
+        }
+        
+        function populateSelectionsTable(selections) {
+            const container = document.getElementById('selections-table');
+            
+            if (selections.length === 0) {
+                container.innerHTML = '<p>No camp selections found.</p>';
+                return;
+            }
+            
+            const table = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User Name</th>
+                            <th>User Email</th>
+                            <th>Camp Name</th>
+                            <th>Selected Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${selections.map(selection => `
+                            <tr>
+                                <td>${selection.id}</td>
+                                <td>${selection.userName}</td>
+                                <td>${selection.userEmail}</td>
+                                <td>${selection.campName}</td>
+                                <td>${new Date(selection.selectedDate).toLocaleDateString()} ${new Date(selection.selectedDate).toLocaleTimeString()}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = table;
+        }
+        
+        // Load data when page loads
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>
