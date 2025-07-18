@@ -275,6 +275,11 @@
       padding: 2rem;
       margin-bottom: 1.5rem;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
       border: 1px solid rgba(226, 232, 240, 0.5);
       transition: all 0.3s ease;
       position: relative;
@@ -303,10 +308,6 @@
       background: linear-gradient(135deg, #ecfdf5, #d1fae5);
       border: 2px solid #10b981;
       animation: newCampPulse 2s ease-in-out;
-    }
-    .camp-item.editing {
-      background: linear-gradient(135deg, #fef3c7, #fde68a);
-      border: 2px solid #f59e0b;
     }
     @keyframes newCampPulse {
       0% {
@@ -337,84 +338,6 @@
       font-size: 1rem;
       color: #64748b;
       line-height: 1.6;
-    }
-    .camp-actions {
-      display: flex;
-      gap: 0.75rem;
-      margin-top: 1rem;
-      flex-wrap: wrap;
-    }
-    .camp-actions .btn {
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-      min-width: auto;
-    }
-    /* Edit Form */
-    .edit-form {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-top: 1rem;
-      border: 2px solid #f59e0b;
-      animation: slideDown 0.3s ease-out;
-    }
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    .edit-form h5 {
-      color: #f59e0b;
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-    .edit-form .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .edit-form .form-group {
-      margin-bottom: 1rem;
-    }
-    .edit-form label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      color: #374151;
-      font-size: 0.9rem;
-    }
-    .edit-form input, 
-    .edit-form textarea, 
-    .edit-form select {
-      width: 100%;
-      padding: 0.75rem;
-      border: 2px solid #e2e8f0;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-      font-family: inherit;
-      background: rgba(248, 250, 252, 0.5);
-    }
-    .edit-form input:focus, 
-    .edit-form textarea:focus, 
-    .edit-form select:focus {
-      outline: none;
-      border-color: #f59e0b;
-      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
-      background: rgba(255, 255, 255, 0.9);
-    }
-    .edit-form .form-actions {
-      display: flex;
-      gap: 0.75rem;
-      justify-content: flex-end;
-      margin-top: 1.5rem;
     }
     /* Forms */
     .form-group {
@@ -501,13 +424,6 @@
     .btn-secondary:hover {
       box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
     }
-    .btn-warning {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-    }
-    .btn-warning:hover {
-      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
-    }
     .btn-danger {
       background: linear-gradient(135deg, #ef4444, #dc2626);
       box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
@@ -524,11 +440,6 @@
     .btn-outline:hover {
       background: #3b82f6;
       color: white;
-    }
-    .btn-small {
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-      min-width: auto;
     }
     /* Radio Groups */
     .radio-group {
@@ -621,9 +532,6 @@
       .content-grid {
         grid-template-columns: 1fr;
       }
-      .edit-form .form-row {
-        grid-template-columns: 1fr;
-      }
     }
     @media (max-width: 768px) {
       .nav-bar {
@@ -649,13 +557,13 @@
         padding: 2rem;
       }
       .camp-item {
+        flex-direction: column;
+        align-items: flex-start;
         padding: 1.5rem;
       }
-      .camp-actions {
-        flex-direction: column;
-      }
-      .camp-actions .btn {
-        width: 100%;
+      .camp-info {
+        min-width: 100%;
+        margin-bottom: 1rem;
       }
       .back-btn {
         position: static;
@@ -664,12 +572,6 @@
       }
       .content-grid {
         gap: 1.5rem;
-      }
-      .edit-form .form-actions {
-        flex-direction: column;
-      }
-      .edit-form .form-actions .btn {
-        width: 100%;
       }
     }
     /* Smooth scrolling */
@@ -799,7 +701,6 @@
 
   <script>
     let lastAddedCampId = null;
-    let editingCampId = null;
 
     function showMessage(message, type = 'success') {
       const existingMessages = document.querySelectorAll('.message');
@@ -884,7 +785,6 @@
             id: 1,
             name: "Central School Grounds",
             beds: 24,
-            originalBeds: 24,
             resources: ["Food", "Water", "Medical Aid", "Blankets"],
             contact: "+91 98765 43210",
             ambulance: "Yes",
@@ -894,7 +794,6 @@
             id: 2,
             name: "Community Hall",
             beds: 12,
-            originalBeds: 12,
             resources: ["Food", "Water", "Blankets", "Clothing"],
             contact: "+91 98765 11223",
             ambulance: "Nearby",
@@ -904,7 +803,6 @@
             id: 3,
             name: "Government High School",
             beds: 30,
-            originalBeds: 30,
             resources: ["Food", "Water", "First Aid", "Hygiene Kits"],
             contact: "+91 98765 77889",
             ambulance: "Yes",
@@ -1030,141 +928,6 @@
       renderCamps();
     }
 
-    function editCamp(campId) {
-      const camp = camps.find(c => c.id === campId);
-      if (!camp) return;
-
-      // Cancel any existing edit
-      if (editingCampId && editingCampId !== campId) {
-        cancelEdit(editingCampId);
-      }
-
-      editingCampId = campId;
-      const campElement = document.getElementById(`camp-${campId}`);
-      campElement.classList.add('editing');
-
-      // Create edit form
-      const editForm = document.createElement('div');
-      editForm.className = 'edit-form';
-      editForm.id = `edit-form-${campId}`;
-      editForm.innerHTML = `
-        <h5>✏️ Edit Camp Details</h5>
-        <form id="editCampForm-${campId}">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="editCampName-${campId}">🏷️ Camp Name:</label>
-              <input type="text" id="editCampName-${campId}" value="${camp.name}" required />
-            </div>
-            <div class="form-group">
-              <label for="editCampBeds-${campId}">🛏️ Available Beds:</label>
-              <input type="number" id="editCampBeds-${campId}" value="${camp.beds}" min="0" required />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="editCampResources-${campId}">📦 Resources:</label>
-            <textarea id="editCampResources-${campId}" rows="2">${camp.resources.join(', ')}</textarea>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="editCampContact-${campId}">📞 Contact:</label>
-              <input type="tel" id="editCampContact-${campId}" value="${camp.contact || ''}" />
-            </div>
-            <div class="form-group">
-              <label for="editCampAmbulance-${campId}">🚑 Ambulance:</label>
-              <select id="editCampAmbulance-${campId}">
-                <option value="Yes" ${camp.ambulance === 'Yes' ? 'selected' : ''}>Yes</option>
-                <option value="No" ${camp.ambulance === 'No' ? 'selected' : ''}>No</option>
-                <option value="Nearby" ${camp.ambulance === 'Nearby' ? 'selected' : ''}>Nearby Hospital</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-actions">
-            <button type="button" class="btn btn-outline btn-small" onclick="cancelEdit(${campId})">❌ Cancel</button>
-            <button type="submit" class="btn btn-warning btn-small">💾 Save Changes</button>
-          </div>
-        </form>
-      `;
-
-      campElement.appendChild(editForm);
-
-      // Add form submit handler
-      document.getElementById(`editCampForm-${campId}`).addEventListener('submit', (e) => {
-        e.preventDefault();
-        saveEditedCamp(campId);
-      });
-
-      // Scroll to the editing camp
-      campElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    function cancelEdit(campId) {
-      const campElement = document.getElementById(`camp-${campId}`);
-      const editForm = document.getElementById(`edit-form-${campId}`);
-      
-      if (campElement) {
-        campElement.classList.remove('editing');
-      }
-      
-      if (editForm) {
-        editForm.remove();
-      }
-      
-      editingCampId = null;
-    }
-
-    function saveEditedCamp(campId) {
-      const campIndex = camps.findIndex(c => c.id === campId);
-      if (campIndex === -1) return;
-
-      const formData = {
-        campName: document.getElementById(`editCampName-${campId}`).value,
-        campBeds: document.getElementById(`editCampBeds-${campId}`).value,
-        campResources: document.getElementById(`editCampResources-${campId}`).value,
-        campContact: document.getElementById(`editCampContact-${campId}`).value,
-        campAmbulance: document.getElementById(`editCampAmbulance-${campId}`).value
-      };
-
-      const errors = validateForm(formData, ['campName', 'campBeds']);
-      
-      if (errors.length > 0) {
-        showMessage('❌ Please fill in all required fields: ' + errors.join(', '), 'error');
-        return;
-      }
-
-      const beds = parseInt(formData.campBeds);
-      if (isNaN(beds) || beds < 0) {
-        showMessage('❌ Please enter a valid number of beds.', 'error');
-        return;
-      }
-
-      const resources = formData.campResources
-        .split(',')
-        .map(r => r.trim())
-        .filter(r => r.length > 0);
-
-      // Update camp data
-      const originalBeds = camps[campIndex].originalBeds || camps[campIndex].beds;
-      camps[campIndex] = {
-        ...camps[campIndex],
-        name: formData.campName,
-        beds: beds,
-        originalBeds: originalBeds,
-        resources: resources.length > 0 ? resources : ['Basic supplies'],
-        contact: formData.campContact || '',
-        ambulance: formData.campAmbulance,
-        lastModified: new Date().toISOString(),
-        modifiedBy: document.getElementById('volunteerName').textContent
-      };
-
-      if (saveCamps(camps)) {
-        showMessage(`✅ Camp "${formData.campName}" updated successfully!`, 'success');
-        cancelEdit(campId);
-        renderCamps();
-      } else {
-        showMessage('❌ Failed to update camp. Please try again.', 'error');
-      }
-    }
-
     function renderCamps() {
       const campListEl = document.getElementById('campList');
       const volunteerCampOptionsEl = document.getElementById('volunteerCampOptions');
@@ -1204,12 +967,8 @@
             ${camp.ambulance ? `<p><strong>🚑 Ambulance:</strong> ${camp.ambulance}</p>` : ''}
             ${camp.addedBy ? `<p><strong>👤 Added by:</strong> ${camp.addedBy}</p>` : ''}
             ${camp.addedDate ? `<p><strong>📅 Added:</strong> ${new Date(camp.addedDate).toLocaleDateString()}</p>` : ''}
-            ${camp.lastModified ? `<p><strong>🔄 Last Modified:</strong> ${new Date(camp.lastModified).toLocaleDateString()} by ${camp.modifiedBy}</p>` : ''}
           </div>
-          <div class="camp-actions">
-            <button class="btn btn-warning btn-small" onclick="editCamp(${camp.id})">✏️ Edit</button>
-            ${camp.type !== 'default' ? `<button class="btn btn-danger btn-small" onclick="deleteCamp(${camp.id})">🗑️ Remove</button>` : ''}
-          </div>
+          ${camp.type !== 'default' ? `<button class="btn btn-danger" onclick="deleteCamp(${camp.id})">🗑️ Remove</button>` : ''}
         `;
         campListEl.appendChild(campDiv);
 
@@ -1226,11 +985,6 @@
 
     function deleteCamp(campId) {
       if (confirm('Are you sure you want to remove this camp? This action cannot be undone.')) {
-        // Cancel edit if this camp is being edited
-        if (editingCampId === campId) {
-          cancelEdit(campId);
-        }
-        
         camps = camps.filter(camp => camp.id !== campId);
         saveCamps(camps);
         renderCamps();
@@ -1285,7 +1039,6 @@
         id: camps.length ? Math.max(...camps.map(c => c.id)) + 1 : 1,
         name: formData.campName,
         beds: beds,
-        originalBeds: beds,
         resources: resources.length > 0 ? resources : ['Basic supplies'],
         contact: formData.campContact || '',
         ambulance: formData.campAmbulance || 'No',
@@ -1390,13 +1143,6 @@
         console.log('🔄 Auto-refreshing camp data...');
       }
     }, 120000);
-
-    // Handle escape key to cancel editing
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && editingCampId) {
-        cancelEdit(editingCampId);
-      }
-    });
   </script>
 </body>
 </html>

@@ -23,16 +23,6 @@ const DB_PATH = path.join(__dirname, "database")
 const USERS_FILE = path.join(DB_PATH, "users.json")
 const CAMPS_FILE = path.join(DB_PATH, "camps.json")
 const SELECTIONS_FILE = path.join(DB_PATH, "selections.json")
-const path = require('path');
-
-// Serve static frontend files
-app.use(express.static(path.join(__dirname, 'client')));
-
-// Fallback for other routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'index.html'));
-});
-
 
 // Initialize database
 async function initializeDatabase() {
