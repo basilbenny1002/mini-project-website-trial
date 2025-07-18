@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flood Rehabilitation Project - Emergency Relief Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Include all the CSS from your original index.html file here */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      color: #334155;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    /* Add all your existing CSS styles here... */
+    /* For brevity, I'm not including all CSS, but you should copy it from your original file */
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      color: #1e293b;
+      padding: 1rem 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+    }
+    
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .nav-bar h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin: 0;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .nav-link {
+      color: #64748b;
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+    }
+    
+    .nav-btn {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      border: none;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .hero {
+      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%);
+      color: #1e293b;
+      text-align: center;
+      padding: 5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 600px;
+      margin: 0 auto 2.5rem auto;
+      opacity: 0.8;
+    }
+    
+    .btn {
+      text-decoration: none;
+      padding: 1rem 2.5rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+      min-width: 160px;
+      text-align: center;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+    
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.9);
+      color: #3b82f6;
+      border: 2px solid #3b82f6;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+    
+    .message {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      color: white;
+      font-weight: 600;
+      z-index: 1000;
+      max-width: 350px;
+      animation: slideInRight 0.5s ease-out;
+    }
+    
+    .message.success {
+      background: linear-gradient(135deg, #10b981, #059669);
+    }
+    
+    .message.error {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+    
+    @keyframes slideInRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    /* Add more styles as needed from your original CSS */
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <nav class="nav-bar">
+        <div class="logo">
+          <h1 onclick="window.location.href='index.html'">🌊 Flood Rehabilitation Project</h1>
+        </div>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link active">Home</a>
+          <span id="userInfo" class="user-info hidden"></span>
+          <a href="#" class="nav-link" id="campsLink" onclick="handleCampsAccess()">Relief Camps</a>
+          <a href="dashboard.html" class="nav-link" id="dashboardLink">Dashboard</a>
+          <a href="login.html" class="nav-link" id="loginLink">Login</a>
+          <button class="nav-btn" onclick="showSignup()" id="signupBtn">Register</button>
+          <button class="nav-btn" onclick="logout()" id="logoutBtn" style="display: none;">Logout</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section id="landingSection">
+      <div class="hero">
+        <div class="container">
+          <div class="hero-content">
+            <h2>🤝 Emergency Flood Relief & Rehabilitation Services</h2>
+            <p>Coordinating community support and resources for comprehensive flood recovery efforts</p>
+            <div class="cta-buttons" id="ctaButtons">
+              <a href="login.html" class="btn btn-primary">🔐 Access Portal</a>
+              <button class="btn btn-outline" onclick="showSignup()">✨ Register for Services</button>
+            </div>
+            <div class="cta-buttons hidden" id="loggedInButtons">
+              <button class="btn btn-secondary" onclick="handleCampsAccess()">🏕️ View Relief Camps</button>
+              <a href="dashboard.html" class="btn btn-primary" id="dashboardBtnLoggedIn">📊 Access Dashboard</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Add your signup form and other sections here from the original file -->
+  </main>
+
+  <script>
+    const API_BASE = 'http://localhost:3000/api';
+    
+    // Utility functions
+    function showMessage(message, type = 'success') {
+      const existingMessages = document.querySelectorAll('.message');
+      existingMessages.forEach(msg => msg.remove());
+      
+      const messageEl = document.createElement('div');
+      messageEl.className = `message ${type}`;
+      messageEl.textContent = message;
+      document.body.appendChild(messageEl);
+      
+      setTimeout(() => {
+        if (messageEl.parentNode) {
+          messageEl.remove();
+        }
+      }, 5000);
+    }
+
+    function getToken() {
+      return localStorage.getItem('authToken');
+    }
+
+    function setToken(token) {
+      localStorage.setItem('authToken', token);
+    }
+
+    function removeToken() {
+      localStorage.removeItem('authToken');
+    }
+
+    function getCurrentUser() {
+      try {
+        const userData = localStorage.getItem('currentUser');
+        return userData ? JSON.parse(userData) : null;
+      } catch (error) {
+        console.error('Error loading user data:', error);
+        return null;
+      }
+    }
+
+    function setCurrentUser(userData) {
+      try {
+        localStorage.setItem('currentUser', JSON.stringify(userData));
+        return true;
+      } catch (error) {
+        console.error('Error saving user data:', error);
+        return false;
+      }
+    }
+
+    function clearCurrentUser() {
+      try {
+        localStorage.removeItem('currentUser');
+        removeToken();
+        updateNavigation();
+        return true;
+      } catch (error) {
+        console.error('Error clearing user data:', error);
+        return false;
+      }
+    }
+
+    async function verifyToken() {
+      const token = getToken();
+      if (!token) return null;
+
+      try {
+        const response = await fetch(`${API_BASE}/verify`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setCurrentUser(data.user);
+          return data.user;
+        } else {
+          removeToken();
+          localStorage.removeItem('currentUser');
+          return null;
+        }
+      } catch (error) {
+        console.error('Error verifying token:', error);
+        return null;
+      }
+    }
+
+    function handleCampsAccess() {
+      const currentUser = getCurrentUser();
+      if (!currentUser) {
+        showMessage('🔐 Please login or register to access relief camps information.', 'error');
+        setTimeout(() => {
+          if (confirm('You need to be logged in to view relief camps. Would you like to login now?')) {
+            window.location.href = 'login.html';
+          } else if (confirm('Or would you like to register for our services?')) {
+            showSignup();
+          }
+        }, 1000);
+        return;
+      }
+      // User is logged in, redirect to camps
+      window.location.href = 'camps.html';
+    }
+
+    function updateNavigation() {
+      const currentUser = getCurrentUser();
+      const userInfo = document.getElementById('userInfo');
+      const loginLink = document.getElementById('loginLink');
+      const signupBtn = document.getElementById('signupBtn');
+      const logoutBtn = document.getElementById('logoutBtn');
+      const campsLink = document.getElementById('campsLink');
+      const dashboardLink = document.getElementById('dashboardLink');
+      const dashboardBtnLoggedIn = document.getElementById('dashboardBtnLoggedIn');
+      const ctaButtons = document.getElementById('ctaButtons');
+      const loggedInButtons = document.getElementById('loggedInButtons');
+
+      if (currentUser) {
+        userInfo.textContent = `👋 Welcome, ${currentUser.name}`;
+        userInfo.classList.remove('hidden');
+        loginLink.style.display = 'none';
+        signupBtn.style.display = 'none';
+        logoutBtn.style.display = 'inline-block';
+        
+        if (ctaButtons && loggedInButtons) {
+          ctaButtons.classList.add('hidden');
+          loggedInButtons.classList.remove('hidden');
+        }
+
+        if (currentUser.role === 'volunteer') {
+          dashboardLink.style.display = 'inline-block';
+          if (dashboardBtnLoggedIn) dashboardBtnLoggedIn.style.display = 'inline-block';
+        } else if (currentUser.role === 'refugee') {
+          dashboardLink.style.display = 'none';
+          if (dashboardBtnLoggedIn) dashboardBtnLoggedIn.style.display = 'none';
+        }
+      } else {
+        userInfo.classList.add('hidden');
+        loginLink.style.display = 'inline-block';
+        signupBtn.style.display = 'inline-block';
+        logoutBtn.style.display = 'none';
+        dashboardLink.style.display = 'inline-block';
+        
+        if (ctaButtons && loggedInButtons) {
+          ctaButtons.classList.remove('hidden');
+          loggedInButtons.classList.add('hidden');
+        }
+      }
+    }
+
+    function logout() {
+      if (confirm('Are you sure you want to logout?')) {
+        clearCurrentUser();
+        showMessage('✅ Successfully logged out!', 'success');
+        showLanding();
+      }
+    }
+
+    function showSignup() {
+      // Implement signup form display logic
+      console.log('Show signup form');
+    }
+
+    function showLanding() {
+      // Implement landing page display logic
+      console.log('Show landing page');
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', async () => {
+      await verifyToken();
+      updateNavigation();
+    });
+  </script>
+</body>
+</html>

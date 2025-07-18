@@ -220,7 +220,7 @@
     <div class="nav-links">
       <a href="index.html" class="nav-link">Home</a>
       <a href="login.html" class="nav-link active">Login</a>
-      <a href="camps.html" class="nav-link">View Camps</a>
+      <a href="#" class="nav-link" onclick="handleCampsAccess()">View Camps</a>
       <a href="dashboard.html" class="nav-link">Dashboard</a>
       <a href="index.html" class="nav-btn">Sign Up</a>
     </div>
@@ -232,7 +232,6 @@
         <h1>Login</h1>
         <p>Enter your credentials to access the flood rehabilitation platform</p>
       </div>
-
       <form id="loginForm">
         <div class="form-group">
           <label for="email">Email</label>
@@ -246,10 +245,9 @@
         
         <button type="submit" class="btn" id="loginBtn">Login</button>
       </form>
-
       <div class="text-center">
         <p>Don't have an account? <a href="index.html">Sign up here</a></p>
-        <p><a href="camps.html">View camps without login</a></p>
+        <p><a href="#" onclick="handleCampsAccessFromLogin()">Need to access camps?</a></p>
       </div>
     </div>
   </div>
@@ -308,6 +306,14 @@
         console.error('Error loading user data:', error);
         return null;
       }
+    }
+
+    function handleCampsAccess() {
+      showMessage('🔐 Please login first to access relief camps information.', 'error');
+    }
+
+    function handleCampsAccessFromLogin() {
+      showMessage('🔐 Please complete login to access relief camps.', 'error');
     }
 
     // Check if user is already logged in

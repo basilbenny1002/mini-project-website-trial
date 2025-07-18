@@ -692,7 +692,7 @@
         <div class="nav-links">
           <a href="index.html" class="nav-link active">Home</a>
           <span id="userInfo" class="user-info hidden"></span>
-          <a href="camps.html" class="nav-link" id="campsLink">Relief Camps</a>
+          <a href="#" class="nav-link" id="campsLink" onclick="handleCampsAccess()">Relief Camps</a>
           <a href="dashboard.html" class="nav-link" id="dashboardLink">Dashboard</a>
           <a href="login.html" class="nav-link" id="loginLink">Login</a>
           <button class="nav-btn" onclick="showSignup()" id="signupBtn">Register</button>
@@ -714,13 +714,12 @@
               <button class="btn btn-outline" onclick="showSignup()">✨ Register for Services</button>
             </div>
             <div class="cta-buttons hidden" id="loggedInButtons">
-              <a href="camps.html" class="btn btn-secondary">🏕️ View Relief Camps</a>
-              <a href="dashboard.html" class="btn btn-primary">📊 Access Dashboard</a>
+              <button class="btn btn-secondary" onclick="handleCampsAccess()">🏕️ View Relief Camps</button>
+              <a href="dashboard.html" class="btn btn-primary" id="dashboardBtnLoggedIn">📊 Access Dashboard</a>
             </div>
           </div>
         </div>
       </div>
-
       <div class="container">
         <section class="content-section">
           <h2>🌟 Our Services</h2>
@@ -757,7 +756,6 @@
               <button id="volunteerBtn" type="button">🤝 Volunteer Services</button>
             </div>
           </div>
-
           <div class="form-section">
             <form id="refugeeForm">
               <div class="form-row">
@@ -770,7 +768,6 @@
                   <input type="number" id="rage" name="age" required min="1" max="120" placeholder="Enter your age" />
                 </div>
               </div>
-
               <div class="form-row">
                 <div class="form-group">
                   <label for="remail">📧 Email Address *</label>
@@ -781,7 +778,6 @@
                   <input type="tel" id="rcontact" name="contact" required placeholder="Enter your phone number" />
                 </div>
               </div>
-
               <div class="form-group">
                 <label for="rpassword">🔒 Password *</label>
                 <div class="password-field">
@@ -789,17 +785,14 @@
                   <button type="button" class="password-toggle" onclick="togglePassword('rpassword')">👁️ Show</button>
                 </div>
               </div>
-
               <div class="form-group">
                 <label for="raddress">📍 Current Location / Address *</label>
                 <textarea id="raddress" name="address" rows="3" required placeholder="Provide your current location or address"></textarea>
               </div>
-
               <div class="form-group">
                 <label for="rneeds">📝 Assistance Required *</label>
                 <textarea id="rneeds" name="needs" rows="4" required placeholder="Please describe the type of assistance you need"></textarea>
               </div>
-
               <button type="submit">🚀 Submit Registration</button>
             </form>
 
@@ -814,7 +807,6 @@
                   <input type="number" id="vage" name="age" required min="18" max="80" placeholder="Enter your age (18+)" />
                 </div>
               </div>
-
               <div class="form-row">
                 <div class="form-group">
                   <label for="vemail">📧 Email Address *</label>
@@ -825,7 +817,6 @@
                   <input type="tel" id="vcontact" name="contact" required placeholder="Enter your phone number" />
                 </div>
               </div>
-
               <div class="form-group">
                 <label for="vpassword">🔒 Password *</label>
                 <div class="password-field">
@@ -833,20 +824,16 @@
                   <button type="button" class="password-toggle" onclick="togglePassword('vpassword')">👁️ Show</button>
                 </div>
               </div>
-
               <div class="form-group">
                 <label for="vskills">🛠️ Skills and Experience *</label>
                 <textarea id="vskills" name="skills" rows="3" required placeholder="Describe your relevant skills and experience"></textarea>
               </div>
-
               <div class="form-group">
                 <label for="vavailability">⏰ Availability *</label>
                 <textarea id="vavailability" name="availability" rows="3" required placeholder="Please specify your availability (days, hours, duration)"></textarea>
               </div>
-
               <button type="submit">🚀 Submit Volunteer Application</button>
             </form>
-
             <div class="text-center mt-2">
               <button class="btn btn-outline" onclick="showLanding()">← Return to Home</button>
             </div>
@@ -868,7 +855,7 @@
         </div>
         <div class="footer-section">
           <h3>🔗 Quick Links</h3>
-          <p><a href="camps.html">Relief Camps</a></p>
+          <p><a href="#" onclick="handleCampsAccess()">Relief Camps</a></p>
           <p><a href="login.html">Portal Access</a></p>
           <p><a href="#" onclick="showSignup()">Register</a></p>
           <p><a href="#">Emergency Procedures</a></p>
@@ -985,6 +972,23 @@
       }
     }
 
+    function handleCampsAccess() {
+      const currentUser = getCurrentUser();
+      if (!currentUser) {
+        showMessage('🔐 Please login or register to access relief camps information.', 'error');
+        setTimeout(() => {
+          if (confirm('You need to be logged in to view relief camps. Would you like to login now?')) {
+            window.location.href = 'login.html';
+          } else if (confirm('Or would you like to register for our services?')) {
+            showSignup();
+          }
+        }, 1000);
+        return;
+      }
+      // User is logged in, redirect to camps
+      window.location.href = 'camps.html';
+    }
+
     function updateNavigation() {
       const currentUser = getCurrentUser();
       const userInfo = document.getElementById('userInfo');
@@ -993,6 +997,7 @@
       const logoutBtn = document.getElementById('logoutBtn');
       const campsLink = document.getElementById('campsLink');
       const dashboardLink = document.getElementById('dashboardLink');
+      const dashboardBtnLoggedIn = document.getElementById('dashboardBtnLoggedIn');
       const ctaButtons = document.getElementById('ctaButtons');
       const loggedInButtons = document.getElementById('loggedInButtons');
 
@@ -1008,25 +1013,32 @@
           loggedInButtons.classList.remove('hidden');
         }
 
+        // Update camps link to be clickable
+        campsLink.style.cursor = 'pointer';
+        campsLink.style.opacity = '1';
+
         if (currentUser.role === 'volunteer') {
           dashboardLink.style.display = 'inline-block';
-          campsLink.style.display = 'inline-block';
+          if (dashboardBtnLoggedIn) dashboardBtnLoggedIn.style.display = 'inline-block';
         } else if (currentUser.role === 'refugee') {
           dashboardLink.style.display = 'none';
-          campsLink.style.display = 'inline-block';
+          if (dashboardBtnLoggedIn) dashboardBtnLoggedIn.style.display = 'none';
         }
       } else {
         userInfo.classList.add('hidden');
         loginLink.style.display = 'inline-block';
         signupBtn.style.display = 'inline-block';
         logoutBtn.style.display = 'none';
-        campsLink.style.display = 'inline-block';
         dashboardLink.style.display = 'inline-block';
         
         if (ctaButtons && loggedInButtons) {
           ctaButtons.classList.remove('hidden');
           loggedInButtons.classList.add('hidden');
         }
+
+        // Update camps link styling for non-logged users
+        campsLink.style.cursor = 'pointer';
+        campsLink.style.opacity = '0.7';
       }
     }
 
@@ -1092,7 +1104,7 @@
       const userData = { ...userDataToStore, role: 'refugee' };
       
       setCurrentUser(userData);
-      showMessage('✅ Registration successful! Redirecting to relief camps...', 'success');
+      showMessage('✅ Registration successful! You can now access relief camps...', 'success');
       setTimeout(() => window.location.href = 'camps.html', 2000);
     });
 

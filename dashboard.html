@@ -11,7 +11,6 @@
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       font-family: 'Inter', Arial, sans-serif;
       background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
@@ -19,7 +18,6 @@
       line-height: 1.6;
       min-height: 100vh;
     }
-
     /* Header */
     .header {
       background: rgba(255, 255, 255, 0.95);
@@ -32,7 +30,6 @@
       z-index: 100;
       border-bottom: 1px solid rgba(226, 232, 240, 0.5);
     }
-
     .nav-bar {
       max-width: 1200px;
       margin: 0 auto;
@@ -43,13 +40,11 @@
       flex-wrap: wrap;
       gap: 1rem;
     }
-
     .logo {
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
-
     .nav-bar h1 {
       font-size: 1.6rem;
       font-weight: 700;
@@ -61,18 +56,15 @@
       background-clip: text;
       transition: transform 0.3s ease;
     }
-
     .nav-bar h1:hover {
       transform: scale(1.02);
     }
-
     .nav-links {
       display: flex;
       gap: 0.5rem;
       align-items: center;
       flex-wrap: wrap;
     }
-
     .nav-link {
       color: #64748b;
       text-decoration: none;
@@ -82,7 +74,6 @@
       border-radius: 8px;
       position: relative;
     }
-
     .nav-link::before {
       content: '';
       position: absolute;
@@ -94,18 +85,15 @@
       transition: all 0.3s ease;
       transform: translateX(-50%);
     }
-
     .nav-link:hover::before,
     .nav-link.active::before {
       width: 80%;
     }
-
     .nav-link:hover,
     .nav-link.active {
       color: #3b82f6;
       background-color: rgba(59, 130, 246, 0.05);
     }
-
     .nav-btn {
       background: linear-gradient(135deg, #3b82f6, #1d4ed8);
       border: none;
@@ -120,12 +108,10 @@
       display: inline-block;
       box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
     }
-
     .nav-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
     }
-
     .user-info {
       color: #475569;
       font-size: 0.9rem;
@@ -135,7 +121,6 @@
       border-radius: 20px;
       border: 1px solid rgba(226, 232, 240, 0.5);
     }
-
     .back-btn {
       position: fixed;
       top: 20px;
@@ -150,19 +135,16 @@
       z-index: 1000;
       box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
     }
-
     .back-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
     }
-
     /* Main Content */
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 2rem;
     }
-
     /* Dashboard Header */
     .dashboard-header {
       background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%);
@@ -175,7 +157,6 @@
       overflow: hidden;
       animation: fadeInUp 0.8s ease-out;
     }
-
     .dashboard-header::before {
       content: '';
       position: absolute;
@@ -186,19 +167,16 @@
       background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
       opacity: 0.3;
     }
-
     .dashboard-header-content {
       position: relative;
       z-index: 1;
     }
-
     .dashboard-header h1 {
       font-size: 2.5rem;
       margin: 0;
       font-weight: 700;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -209,7 +187,29 @@
         transform: translateY(0);
       }
     }
-
+    /* Access Denied */
+    .access-denied {
+      text-align: center;
+      padding: 3rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 2px solid #ef4444;
+      border-radius: 20px;
+      margin: 2rem 0;
+      box-shadow: 0 20px 40px rgba(239, 68, 68, 0.1);
+    }
+    .access-denied h2 {
+      color: #dc2626;
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    .access-denied p {
+      color: #64748b;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
     /* Content Sections */
     .content-grid {
       display: grid;
@@ -217,11 +217,9 @@
       gap: 2rem;
       margin-bottom: 2rem;
     }
-
     .content-grid.single {
       grid-template-columns: 1fr;
     }
-
     .section {
       background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(10px);
@@ -232,12 +230,10 @@
       transition: all 0.3s ease;
       animation: fadeInUp 0.8s ease-out 0.2s both;
     }
-
     .section:hover {
       transform: translateY(-4px);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     }
-
     .section h2, .section h3 {
       color: #1e293b;
       margin-bottom: 1.5rem;
@@ -248,7 +244,6 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
     .welcome {
       background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(10px);
@@ -259,7 +254,6 @@
       margin-bottom: 3rem;
       animation: fadeInUp 0.8s ease-out 0.1s both;
     }
-
     .welcome h2 {
       background: linear-gradient(135deg, #3b82f6, #1d4ed8);
       -webkit-background-clip: text;
@@ -269,13 +263,11 @@
       font-weight: 700;
       margin-bottom: 1rem;
     }
-
     .welcome p {
       color: #64748b;
       font-size: 1.1rem;
       line-height: 1.7;
     }
-
     /* Camp Items */
     .camp-item {
       background: linear-gradient(135deg, #f8fafc, #f1f5f9);
@@ -293,7 +285,6 @@
       position: relative;
       overflow: hidden;
     }
-
     .camp-item::before {
       content: '';
       position: absolute;
@@ -305,23 +296,19 @@
       transform: scaleX(0);
       transition: transform 0.3s ease;
     }
-
     .camp-item:hover::before {
       transform: scaleX(1);
     }
-
     .camp-item:hover {
       transform: translateY(-4px);
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
       border-color: rgba(59, 130, 246, 0.2);
     }
-
     .camp-item.new-camp {
       background: linear-gradient(135deg, #ecfdf5, #d1fae5);
       border: 2px solid #10b981;
       animation: newCampPulse 2s ease-in-out;
     }
-
     @keyframes newCampPulse {
       0% {
         transform: scale(1);
@@ -336,31 +323,26 @@
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
       }
     }
-
     .camp-info {
       flex: 1;
       min-width: 250px;
     }
-
     .camp-info h4 {
       margin: 0 0 0.75rem 0;
       color: #1e293b;
       font-size: 1.25rem;
       font-weight: 600;
     }
-
     .camp-info p {
       margin: 0.5rem 0;
       font-size: 1rem;
       color: #64748b;
       line-height: 1.6;
     }
-
     /* Forms */
     .form-group {
       margin-bottom: 1.5rem;
     }
-
     label {
       display: block;
       margin-bottom: 0.75rem;
@@ -368,7 +350,6 @@
       color: #374151;
       font-size: 1rem;
     }
-
     input, textarea, select {
       width: 100%;
       padding: 1rem;
@@ -380,7 +361,6 @@
       background: rgba(248, 250, 252, 0.5);
       backdrop-filter: blur(10px);
     }
-
     input:focus, textarea:focus, select:focus {
       outline: none;
       border-color: #3b82f6;
@@ -388,11 +368,9 @@
       background: rgba(255, 255, 255, 0.9);
       transform: translateY(-1px);
     }
-
     input::placeholder, textarea::placeholder {
       color: #9ca3af;
     }
-
     /* Buttons */
     .btn {
       background: linear-gradient(135deg, #3b82f6, #1d4ed8);
@@ -410,7 +388,6 @@
       position: relative;
       overflow: hidden;
     }
-
     .btn::before {
       content: '';
       position: absolute;
@@ -421,65 +398,53 @@
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
       transition: left 0.5s ease;
     }
-
     .btn:hover::before {
       left: 100%;
     }
-
     .btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
     }
-
     .btn:disabled {
       background: linear-gradient(135deg, #cbd5e1, #94a3b8);
       cursor: not-allowed;
       transform: none;
       box-shadow: none;
     }
-
     .btn-full {
       width: 100%;
       margin-top: 1.5rem;
       padding: 1rem;
       font-size: 1.1rem;
     }
-
     .btn-secondary {
       background: linear-gradient(135deg, #10b981, #059669);
       box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
     }
-
     .btn-secondary:hover {
       box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
     }
-
     .btn-danger {
       background: linear-gradient(135deg, #ef4444, #dc2626);
       box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
     }
-
     .btn-danger:hover {
       box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
     }
-
     .btn-outline {
       background: rgba(255, 255, 255, 0.9);
       color: #3b82f6;
       border: 2px solid #3b82f6;
       backdrop-filter: blur(10px);
     }
-
     .btn-outline:hover {
       background: #3b82f6;
       color: white;
     }
-
     /* Radio Groups */
     .radio-group {
       margin: 1.5rem 0;
     }
-
     .radio-item {
       display: flex;
       align-items: center;
@@ -492,20 +457,17 @@
       transition: all 0.3s ease;
       border: 2px solid #e2e8f0;
     }
-
     .radio-item:hover {
       background: rgba(255, 255, 255, 0.9);
       border-color: #3b82f6;
       transform: translateY(-2px);
       box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
     }
-
     .radio-item input[type="radio"] {
       width: auto;
       margin-right: 1rem;
       transform: scale(1.2);
     }
-
     .radio-item label {
       margin: 0;
       cursor: pointer;
@@ -513,7 +475,6 @@
       font-weight: 500;
       color: #1e293b;
     }
-
     /* Messages */
     .message {
       position: fixed;
@@ -529,15 +490,12 @@
       backdrop-filter: blur(20px);
       animation: slideInRight 0.5s ease-out;
     }
-
     .message.success {
       background: linear-gradient(135deg, #10b981, #059669);
     }
-
     .message.error {
       background: linear-gradient(135deg, #ef4444, #dc2626);
     }
-
     @keyframes slideInRight {
       from {
         transform: translateX(100%);
@@ -548,33 +506,6 @@
         opacity: 1;
       }
     }
-
-    /* Access Denied */
-    .access-denied {
-      text-align: center;
-      padding: 3rem;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px);
-      border: 2px solid #ef4444;
-      border-radius: 20px;
-      margin: 2rem 0;
-      box-shadow: 0 20px 40px rgba(239, 68, 68, 0.1);
-    }
-
-    .access-denied h2 {
-      color: #dc2626;
-      margin-bottom: 1rem;
-      font-size: 1.8rem;
-      font-weight: 700;
-    }
-
-    .access-denied p {
-      color: #64748b;
-      font-size: 1.1rem;
-      margin-bottom: 2rem;
-      line-height: 1.7;
-    }
-
     /* Loading */
     .loading {
       display: inline-block;
@@ -586,27 +517,22 @@
       animation: spin 1s linear infinite;
       margin-right: 8px;
     }
-
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-
     /* Utility Classes */
     .text-center {
       text-align: center;
     }
-
     .hidden {
       display: none;
     }
-
     /* Responsive Design */
     @media (max-width: 1024px) {
       .content-grid {
         grid-template-columns: 1fr;
       }
     }
-
     @media (max-width: 768px) {
       .nav-bar {
         flex-direction: column;
@@ -614,69 +540,55 @@
         gap: 1.5rem;
         padding: 1rem;
       }
-
       .nav-links {
         justify-content: center;
         width: 100%;
       }
-
       .container {
         padding: 1rem;
       }
-
       .dashboard-header {
         padding: 2rem 1.5rem;
       }
-
       .dashboard-header h1 {
         font-size: 2rem;
       }
-
       .section, .welcome {
         padding: 2rem;
       }
-
       .camp-item {
         flex-direction: column;
         align-items: flex-start;
         padding: 1.5rem;
       }
-
       .camp-info {
         min-width: 100%;
         margin-bottom: 1rem;
       }
-
       .back-btn {
         position: static;
         display: inline-block;
         margin-bottom: 1rem;
       }
-
       .content-grid {
         gap: 1.5rem;
       }
     }
-
     /* Smooth scrolling */
     html {
       scroll-behavior: smooth;
     }
-
     /* Custom scrollbar */
     ::-webkit-scrollbar {
       width: 8px;
     }
-
     ::-webkit-scrollbar-track {
       background: #f1f5f9;
     }
-
     ::-webkit-scrollbar-thumb {
       background: linear-gradient(135deg, #3b82f6, #1d4ed8);
       border-radius: 4px;
     }
-
     ::-webkit-scrollbar-thumb:hover {
       background: linear-gradient(135deg, #1d4ed8, #1e40af);
     }
@@ -684,7 +596,6 @@
 </head>
 <body>
   <a href="index.html" class="back-btn">← Back to Home</a>
-
   <header class="header">
     <nav class="nav-bar">
       <div class="logo">
@@ -738,22 +649,18 @@
               <label for="campName">🏷️ Camp Name:</label>
               <input type="text" id="campName" required placeholder="Enter camp name" />
             </div>
-
             <div class="form-group">
               <label for="campBeds">🛏️ Number of Beds Available:</label>
               <input type="number" id="campBeds" min="0" required placeholder="Enter number of beds" />
             </div>
-
             <div class="form-group">
               <label for="campResources">📦 Available Resources (comma separated):</label>
               <textarea id="campResources" rows="3" placeholder="Food, Water, Medical Aid, Blankets, Clothing..."></textarea>
             </div>
-
             <div class="form-group">
               <label for="campContact">📞 Emergency Contact:</label>
               <input type="tel" id="campContact" placeholder="Enter emergency contact number" />
             </div>
-
             <div class="form-group">
               <label for="campAmbulance">🚑 Ambulance Available:</label>
               <select id="campAmbulance">
@@ -762,7 +669,6 @@
                 <option value="Nearby">Nearby Hospital</option>
               </select>
             </div>
-
             <button type="submit" class="btn btn-full" id="addCampBtn">🚀 Add Camp</button>
           </form>
         </section>
@@ -875,28 +781,28 @@
       if (!existingCamps) {
         // Initialize with default camps if none exist
         const defaultCamps = [
-          { 
-            id: 1, 
-            name: "Central School Grounds", 
-            beds: 24, 
+          {
+            id: 1,
+            name: "Central School Grounds",
+            beds: 24,
             resources: ["Food", "Water", "Medical Aid", "Blankets"],
             contact: "+91 98765 43210",
             ambulance: "Yes",
             type: "default"
           },
-          { 
-            id: 2, 
-            name: "Community Hall", 
-            beds: 12, 
+          {
+            id: 2,
+            name: "Community Hall",
+            beds: 12,
             resources: ["Food", "Water", "Blankets", "Clothing"],
             contact: "+91 98765 11223",
             ambulance: "Nearby",
             type: "default"
           },
-          { 
-            id: 3, 
-            name: "Government High School", 
-            beds: 30, 
+          {
+            id: 3,
+            name: "Government High School",
+            beds: 30,
             resources: ["Food", "Water", "First Aid", "Hygiene Kits"],
             contact: "+91 98765 77889",
             ambulance: "Yes",
@@ -1090,9 +996,9 @@
       setTimeout(() => {
         const campElement = document.getElementById(`camp-${campId}`);
         if (campElement) {
-          campElement.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'center' 
+          campElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
           });
         }
       }, 100);
@@ -1151,9 +1057,9 @@
         showMessage(`✅ Camp "${newCamp.name}" added successfully! It will now appear on the camps page.`, 'success');
         
         setTimeout(() => {
-          document.getElementById('campsSection').scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'start' 
+          document.getElementById('campsSection').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
           });
         }, 500);
       } else {
@@ -1232,8 +1138,10 @@
 
     // Auto-refresh camps every 2 minutes
     setInterval(() => {
-      loadCamps();
-      console.log('🔄 Auto-refreshing camp data...');
+      if (getCurrentUser() && getCurrentUser().role === 'volunteer') {
+        loadCamps();
+        console.log('🔄 Auto-refreshing camp data...');
+      }
     }, 120000);
   </script>
 </body>
