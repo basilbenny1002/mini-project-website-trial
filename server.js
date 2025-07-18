@@ -9,7 +9,8 @@ mongoose.connect(process.env.MONGO_URI, {
 }).catch((err) => {
   console.log('MongoDB Connection Error:', err);
 });
-const User = require('/models/User.js');
+const User = require('./models/user.js');
+
 
 app.post('/register', async (req, res) => {
   try {
