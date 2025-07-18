@@ -1,37 +1,15 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
+const express = require('express');
+const app = express();  // Initialize first!
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log('MongoDB Connected');
-}).catch((err) => {
-  console.log('MongoDB Connection Error:', err);
-});
-const User = require('./models/user.js');
+app.use(express.json());
+app.use('/route', someMiddleware);
 
-
-app.post('/register', async (req, res) => {
-  try {
-    const user = new User({
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password
-    });
-    await user.save();
-    res.send('User Registered');
-  } catch (err) {
-    res.status(500).send('Error Registering User');
-  }
-});
-mongoose.connect(process.env.MONGO_URI)
+// Connect DB
+mongoose.connect(MONGO_URI)
   .then(() => {
     app.listen(PORT, () => console.log(`Server running on ${PORT}`));
   })
   .catch(err => console.log(err));
-
-
 
 const express = require("express")
 const cors = require("cors")
