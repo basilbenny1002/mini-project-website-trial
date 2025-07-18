@@ -16,10 +16,12 @@ const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key-change-in-producti
 
 // ✅ MongoDB Connection
 
-mongoose
-  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+const mongoose = require("mongoose");
+
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
+
 
 // ✅ Mongoose Schemas & Models
 const userSchema = new mongoose.Schema({
