@@ -25,6 +25,12 @@ app.post('/register', async (req, res) => {
     res.status(500).send('Error Registering User');
   }
 });
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+  })
+  .catch(err => console.log(err));
+
 
 
 const express = require("express")
